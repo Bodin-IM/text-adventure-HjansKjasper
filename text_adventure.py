@@ -1,5 +1,31 @@
 from random import randint
 
+enemyMaxDmg = 50
+enemyMinDmg = 5
+enemyHitChance = 60
+enemyHp = 100
+enemyName = "The Janitor"
+
+toyswordMaxDmg = 40
+toyswordMinDmg = 20
+toyswordHitChance = 80
+
+rockMaxDmg = 100
+rockMinDmg = 70
+rockHitChance = 50
+
+cactusMaxDmg = 150
+cactusMinDmg = 100
+cactusHitChance = 100
+
+akMaxDmg = 1000
+akMinDmg = 1
+akHitChance = 50
+
+pistolMaxDmg = 200
+pistolMinDmg = 100
+pistolHitChance = 80
+
 def checkHealth(hp):
     if hp <= 0:
         return True
@@ -63,7 +89,7 @@ def combat(enemyName, enemyHp, enemyMaxDmg, enemyMinDmg, enemyHitChance, playerM
 
         if checkHealth(playerHp):
             print("You got killed")
-            input("")
+            print()
             win = False
             break
 
@@ -96,6 +122,7 @@ def prepare():
         elif answer == "B":
             print("You chose to not use the potion")
     print("You must choose a weapon to fight with")
+    print()
     backpack(toysword, rock, cactus, ak, pistol, healpotion)
     while True:
         answer = input("What weapon do you want to use? ->").upper()
@@ -281,6 +308,7 @@ def room8():
     print("You walk through the door, and it's another room")
     print("This time there is only one door, you walk toward the door, but the closer you come, you start to notice a sound")
     print("You hear a monster of some sort on the other side")
+    print()
     input("You should prepare for battle, press ENTER to look in your backpack ")
     print()
     prepare()
@@ -289,13 +317,7 @@ def room8():
     room9()
 
 def room9():
-    global playerWeapon
-    global enemyName
-    global playerHp
-    global playerWeapon
-    global playerMaxDmg
-    global playerMinDmg
-    global playerHitChance
+    global playerWeapon, enemyName, playerHp, playerWeapon, playerMaxDmg, playerMinDmg, playerHitChance
     enemyHp = 1000
     enemyMaxDmg = 60
     enemyMinDmg = 10
@@ -305,20 +327,26 @@ def room9():
     print(f"You walk through the door with your {playerWeapon} in your hand, you are scared of what you will find on the other side, but you really want to leave Storo Storsenter, so you push through")
     print(f"On the other side there is no monster, but a handsome man is waiting for you, yes it is {enemyName}")
     print("But he doesen't look very friendly, he reaches for his knife and rushes towards you")
+    print()
     input("Press ENTER to enter combat ->")
-    combat(enemyName, enemyHp, enemyMaxDmg, enemyMinDmg, enemyHitChance, playerMaxDmg, playerMinDmg, playerHitChance, playerWeapon)
+    win = combat(enemyName, enemyHp, enemyMaxDmg, enemyMinDmg, enemyHitChance, playerMaxDmg, playerMinDmg, playerHitChance, playerWeapon)
     if win:
         print()
     else:
-        print("You sadly lost, and the game will now close")
-        input("->")
-        exit()
+        input("You sadly lost, press A to start over, or B to close the game")
+        answer = choice()
+        if answer == "A":    
+            print()
+            start()
+        elif answer == "B":
+            exit()
 
 def room10():
     print()
     print("You walk through the door, and it's another room")
     print("This time there is only one door, you walk toward the door, but the closer you come, you start to notice a sound")
     print("You hear a monster of some sort on the other side")
+    print()
     input("You should prepare for battle, press ENTER to look in your backpack ")
     print()
     prepare()
@@ -326,93 +354,90 @@ def room10():
     input("You are now ready for combat, press ENTER to go through the door -> ")
     room9()
 
-playerHp = 100
+def start():
+    global playerWeapon, playerMaxDmg, playerMinDmg, playerHitChance, toysword, toyswordMaxDmg, toyswordMinDmg, toyswordHitChance, rock, rockMinDmg, rockMaxDmg, rockHitChance, cactus, ak, pistol, healpotion, enemyName, enemyHp, enemyMaxDmg, enemyMinDmg, enemyHitChance, playerHp
+    global room1chest, room3chest, room5chest, room6chest, room7chest
+    playerHp = 100
 
-enemyMaxDmg = 50
-enemyMinDmg = 5
-enemyHitChance = 60
-enemyHp = 100
-enemyName = "The Janitor"
+    toysword = False
+    rock = False
+    cactus = False
+    ak = False
+    pistol = False
+    healpotion = False
 
-toysword = False
-rock = False
-cactus = False
-ak = False
-pistol = False
-healpotion = False
+    room1chest = True
+    room3chest = True
+    room5chest = True
+    room6chest = True
+    room7chest = True
 
-toyswordMaxDmg = 40
-toyswordMinDmg = 20
-toyswordHitChance = 80
-
-rockMaxDmg = 100
-rockMinDmg = 70
-rockHitChance = 50
-
-cactusMaxDmg = 150
-cactusMinDmg = 100
-cactusHitChance = 70
-
-akMaxDmg = 1000
-akMinDmg = 1
-akHitChance = 50
-
-pistolMaxDmg = 200
-pistolMinDmg = 100
-pistolHitChance = 80
-
-room1chest = True
-room3chest = True
-room5chest = True
-room6chest = True
-room7chest = True
-
-print("You wake up at the toilets at Storo Storsenter, you don't feel very well, but you quickly piece together what has happened. You probably fell asleep here after you ate that massive sausage at 7eleven, hmm, never eating at 7eleven again you think to yourself.")
-print("But something is off, you hear no sound at all, Storo Storsenter is never this quiet. You check the clock and see that it is in the middle of the night! 03:14 it says.")
-print("You walk out of the toilets, and see the janitor staring at you, he does not look happy. You can see him reaching for his broom, and you realize he is going to attack you")
-print()
-print("in front of you, there is a toy-sword from Ringo and a rock, which one do you pick up and try to fight back with? A for toy-sword, B for rock")
-
-answer = choice()
-
-if answer == "A":
+    print("You wake up at the toilets at Storo Storsenter, you don't feel very well, but you quickly piece together what has happened. You probably fell asleep here after you ate that massive sausage at 7eleven, hmm, never eating at 7eleven again you think to yourself.")
+    print("But something is off, you hear no sound at all, Storo Storsenter is never this quiet. You check the clock and see that it is in the middle of the night! 03:14 it says.")
+    print("You walk out of the toilets, and see the janitor staring at you, he does not look happy. You can see him reaching for his broom, and you realize he is going to attack you")
     print()
-    print("You chose the toy-sword")
-    print("The toy-sword has low damage, but high hit-chance")
-    playerWeapon = "toy-sword" 
-    playerMaxDmg = toyswordMaxDmg
-    playerMinDmg = toyswordMinDmg
-    playerHitChance = toyswordHitChance
-    toysword = True
+    print("in front of you, there is a toy-sword from Ringo and a rock, which one do you pick up and try to fight back with? A for toy-sword, B for rock")
 
-elif answer == "B":
-    print()
-    print("You chose the rock")
-    print("The rock has high damage, but low hit-chance")
-    playerWeapon = "rock" 
-    playerMaxDmg = rockMaxDmg
-    playerMinDmg = rockMinDmg
-    playerHitChance = rockHitChance
-    rock = True
-
-while True:
-    print()
-    print("A to start combat, B to view your backpack -> ")
     answer = choice()
+
     if answer == "A":
-        break
+        print()
+        print("You chose the toy-sword")
+        print("The toy-sword has low damage, but high hit-chance")
+        playerWeapon = "toy-sword" 
+        playerMaxDmg = toyswordMaxDmg
+        playerMinDmg = toyswordMinDmg
+        playerHitChance = toyswordHitChance
+        toysword = True
+
     elif answer == "B":
         print()
-        backpack(toysword, rock, cactus, ak, pistol, healpotion)
+        print("You chose the rock")
+        print("The rock has high damage, but low hit-chance")
+        playerWeapon = "rock" 
+        playerMaxDmg = rockMaxDmg
+        playerMinDmg = rockMinDmg
+        playerHitChance = rockHitChance
+        rock = True
 
-win = combat(enemyName, enemyHp, enemyMaxDmg, enemyMinDmg, enemyHitChance, playerMaxDmg, playerMinDmg, playerHitChance, playerWeapon)
+    while True:
+        print()
+        print("A to start combat, B to view your backpack -> ")
+        answer = choice()
+        if answer == "A":
+            break
+        elif answer == "B":
+            print()
+            backpack(toysword, rock, cactus, ak, pistol, healpotion)
 
-if win:
-    print()
-else:
-    print("You sadly lost")
+    win = combat(enemyName, enemyHp, enemyMaxDmg, enemyMinDmg, enemyHitChance, playerMaxDmg, playerMinDmg, playerHitChance, playerWeapon)
 
-print()        
+    if win:
+        print()
+    else:
+        input("You sadly lost, press A to start over, or B to close the game")
+        answer = choice()
+        if answer == "A":    
+            print()
+            start()
+        elif answer == "B":
+            exit()
+
+start()
+
 print(f"You killed {enemyName} and now you can finally escape, you see a door in front of you")
 input("Press enter to walk through the door ->")
+
 room1()
+
+print()
+print("With Jens Stoltenberg dead, you finally walk free")
+print("You step outside, smell the fresh air but immediately get hit by a bus and dies")
+
+print("Press A to play again, or B to close the game")
+answer = choice()
+if answer == "A":
+    print()
+    start()
+elif answer == "B":
+    exit()
